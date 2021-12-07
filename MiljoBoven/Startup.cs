@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MiljoBoven.Models;
-
+using Microsoft.EntityFrameworkCore;
 namespace MiljoBoven
 {
     public class Startup
