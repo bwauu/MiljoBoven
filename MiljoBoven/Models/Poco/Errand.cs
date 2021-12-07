@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace MiljoBoven.Models
 {
+
     public class Errand
     {
         public String RefNumber { set; get; }
