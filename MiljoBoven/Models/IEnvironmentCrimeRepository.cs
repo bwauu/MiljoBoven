@@ -4,18 +4,18 @@ using System.Threading.Tasks;
 namespace MiljoBoven.Models
 {
 
-        public interface IEnvironmentCrimeRepository
-        {
-            // Kontrollen pratar med Interfacet men får datat ifrån Implementeringen FakeEnviormentCrimeRepository
-            IQueryable<Department> Departments { get; }
-            IQueryable<Errand> Errands { get; }
-        
-            IQueryable<ErrandStatus> ErrandsStatus { get; }
-            IQueryable<Employee> Employees {
-                get;
-            }
-            Task<Errand> GetErrandDetail(string id);
-     
-        }
-    
+    public interface IEnvironmentCrimeRepository
+    {
+        // Kontrollen pratar med Interfacet men får datat ifrån Implementeringen EFEnvironmentCrimeRepository
+        IQueryable<Department> Departments { get; }
+        IQueryable<Employee> Employees { get; }
+        IQueryable<Errand> Errands { get; }
+        IQueryable<ErrandStatus> ErrandStatuses { get; }
+        IQueryable<Picture> Pictures { get; }
+        IQueryable<Sample> Samples { get; }
+        IQueryable<Sequence> Sequences { get; }
+        Task<Errand> GetErrandDetail(int id);
+
+    }
+
 }

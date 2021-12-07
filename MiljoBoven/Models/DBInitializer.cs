@@ -8,7 +8,9 @@ namespace MiljoBoven.Models
     // SeederData. This is 
     public class DBInitializer
     {
-        // This method is created for the use of filling the DbSets.
+        // DBBS2 This method is created for the use of filling the DbSets.
+        // Next DBBS3 is needed because our Controllers is working with the Interface IEnvironmentCrimeRepository 
+        // DBBS3 is to create a class that implement our Interface. EF
         public static void EnsurePopulated(ApplicationDbContext context) // Param object of applicationdbcontext class.
         {
             if (!context.Departments.Any())

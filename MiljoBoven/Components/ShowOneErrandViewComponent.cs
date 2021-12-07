@@ -13,7 +13,7 @@ namespace MiljoBoven.Components
             repository = repo;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string id) // Läggs på kö och kör när det passar
+        public async Task<IViewComponentResult> InvokeAsync(int id) // Läggs på kö och kör när det passar
         {
             var errandDetail = await repository.GetErrandDetail(id);
             return View(errandDetail);

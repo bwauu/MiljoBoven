@@ -44,7 +44,7 @@ namespace MiljoBoven.Controllers
             return View();
         }
 
-        public ViewResult CrimeCoordinator(string id)
+        public ViewResult CrimeCoordinator(int id)
         {
             ViewBag.Title = "Brottskoordinator - Samordnare";
             ViewBag.ID = id;

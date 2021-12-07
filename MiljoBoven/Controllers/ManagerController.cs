@@ -23,7 +23,7 @@ namespace MiljoBoven.Controllers
             return View(repository);
         }
         
-        public ViewResult CrimeManager(string id)
+        public ViewResult CrimeManager(int id)
         {   
             ViewBag.Title = "Brott - Avdelningschef";
             ViewBag.ID = id;

@@ -22,7 +22,7 @@ namespace MiljoBoven.Controllers
             return View(repository);
         }
         
-        public ViewResult CrimeInvestigator(string id)
+        public ViewResult CrimeInvestigator(int id)
         {
             ViewBag.ID = id;
             return View(repository);
