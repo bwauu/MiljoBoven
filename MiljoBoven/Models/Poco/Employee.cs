@@ -4,9 +4,9 @@ namespace MiljoBoven.Models
 {
     public class Employee
     {
-        public String EmployeeId { set; get; }  
-        public String EmployeeName { set; get; }
-        public String RoleTitle { set; get; } 
-        public String DepartmentId { set; get; }
+        public String EmployeeId { get; set; }
+        public String EmployeeName { get; set; }
+        public String RoleTitle { get; set; }
+        public String DepartmentId { get; set; }
     }
 }

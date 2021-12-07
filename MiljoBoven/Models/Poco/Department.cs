@@ -4,7 +4,7 @@ namespace MiljoBoven.Models
 {
     public class Department
     {
-        public String DepartmentId { set; get; }
-        public String DepartmentName { set; get; }
+        public String DepartmentId { get; set; }
+        public String DepartmentName { get; set; }
     }
 }
