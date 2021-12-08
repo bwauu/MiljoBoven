@@ -19,7 +19,7 @@
     <td>
       <select name="status">
         <option selected="selected">Välj alla</option>
-        @foreach (ErrandStatus errandStatus in Model.ErrandsStatus)
+        @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
         {
           <option>@errandStatus.StatusName</option>
         }

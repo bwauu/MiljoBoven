@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MiljoBoven.Models;
+using MiljoBoven.Infrastructure;
 
 namespace MiljoBoven.Controllers
 {
@@ -18,7 +19,15 @@ namespace MiljoBoven.Controllers
         public ViewResult Index()
         {
             ViewBag.Title = "Hem";
-            return View();
+            var newErrand = HttpContext.Session.GetJson<Errand>("NewErrand");
+            if (newErrand == null)
+            {
+                return View();
+            }
+            else
+            {
+                return View(newErrand);
+            }
         }
         public ViewResult Login()
         {

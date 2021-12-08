@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MiljoBoven.Models;
+using MiljoBoven.Infrastructure;
 
 namespace MiljoBoven.Controllers
 {
@@ -24,12 +25,17 @@ namespace MiljoBoven.Controllers
         [HttpPost] // Script på serversidan
         public ViewResult Validate(Errand errand)
         {
+
+            HttpContext.Session.SetJson("NewErrand", errand);
             return View(errand);
         }
         public ViewResult Thanks()
         {
             ViewBag.Title = "Tack - Samordnare";
-            return View();
+            var errand = HttpContext.Session.GetJson<Errand>("NewErrand");
+            // Metod för att spara
+            HttpContext.Session.Remove("NewErrand");
+            return View(errand);
         }
 
         public ViewResult StartCoordinator()
@@ -38,10 +44,18 @@ namespace MiljoBoven.Controllers
             return View(repository);
         }
 
-        public ViewResult ReportCrime()
+        public ViewResult ReportCrime() // Formulär
         {
             ViewBag.Title = "Rapportera brott - Samordnare ";
-            return View();
+            var newErrand = HttpContext.Session.GetJson<Errand>("NewErrand");
+            if(newErrand == null)
+            {
+                return View();
+            }
+            else
+            {
+                return View(newErrand);
+            }
         }
 
         public ViewResult CrimeCoordinator(int id)

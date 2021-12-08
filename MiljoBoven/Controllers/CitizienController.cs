@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MiljoBoven.Models;
+using MiljoBoven.Infrastructure;
 
 namespace MiljoBoven.Controllers
 {
@@ -19,12 +20,19 @@ namespace MiljoBoven.Controllers
         [HttpPost]
         public ViewResult Validate(Errand errand)
         {
-            return View(errand);
+            ViewBag.Title = "Bekräfta - Medlem";
+
+            HttpContext.Session.SetJson("NewErrand", errand);
+            return View("Validate", errand);
+ 
         }
         public ViewResult Thanks()
         {
             ViewBag.Title = "Tack - Medlem";
-            return View();
+            var errand = HttpContext.Session.GetJson<Errand>("NewErrand");
+            // Metod behövs för att spara errand
+            HttpContext.Session.Remove("NewErrand");
+            return View(errand);
         }
 
         public ViewResult Services()
