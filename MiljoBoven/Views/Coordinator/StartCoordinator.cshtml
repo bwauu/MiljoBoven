@@ -60,7 +60,7 @@
   @foreach (Errand errand in Model.Errands)
   {
     <tr>
-      <td>@errand.DateOfObservation</td> @* Har tagit bort ToString() *@
+      <td>@errand.DateOfObservation.ToShortDateString()</td> @* Har tagit bort ToString() *@
       <td>
         <a asp-controller="Coordinator" asp-action="CrimeCoordinator" asp-route-id="@errand.ErrandID">@errand.RefNumber</a>
       </td>

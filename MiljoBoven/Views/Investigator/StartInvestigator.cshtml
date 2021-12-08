@@ -47,7 +47,7 @@
     @foreach (Errand errand in Model.Errands)
     {
         <tr>
-            <td>@errand.DateOfObservation</td>
+            <td>@errand.DateOfObservation.ToShortDateString()</td>
             <td>
                 <a asp-controller="Investigator" asp-action="CrimeInvestigator" asp-route-id="@errand.ErrandID">@errand.RefNumber</a>
             </td>

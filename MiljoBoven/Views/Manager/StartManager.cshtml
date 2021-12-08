@@ -10,7 +10,6 @@
 <table id="managerForm">
     <tr>
         <td class="label">Välj status:</td>
-        <td>&nbsp</td>
         <td class="label">Välj handläggare:</td>
         <td>&nbsp</td>
         <td class="label">Ärendenummer:</td>
@@ -59,7 +58,7 @@
   @foreach (Errand errand in Model.Errands)
   {
     <tr>
-      <td>@errand.DateOfObservation.Date</td>
+      <td>@errand.DateOfObservation.ToShortDateString()</td>
       <td>
         <a asp-controller="Manager" asp-action="CrimeManager" asp-route-id="@errand.ErrandID">@errand.RefNumber</a>
       </td>
