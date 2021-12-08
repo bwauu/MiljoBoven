@@ -16,6 +16,7 @@ namespace MiljoBoven.Models
         IQueryable<Sequence> Sequences { get; }
         Task<Errand> GetErrandDetail(int id);
 
+        void SaveErrand(Errand errand);
     }
 
 }

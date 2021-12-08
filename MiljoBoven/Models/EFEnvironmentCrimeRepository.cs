@@ -27,6 +27,19 @@ namespace MiljoBoven.Models
         public IQueryable<Sequence> Sequences => context.Sequences;
 
         // Task<Errand> GetErrandDetail(int id);
+
+        public void SaveErrand(Errand errand)
+        {
+            if (errand.ErrandID == 0)
+            {
+                var sequence = Sequences.Where(seq => seq.Id == 1).First();
+                errand.RefNumber = "2021-45-" + sequence.CurrentValue;
+                sequence.CurrentValue++;
+                errand.StatusId = "S_A";
+                context.Errands.Add(errand);
+            }
+            context.SaveChanges();
+        }
         public Task<Errand> GetErrandDetail(int id)
         {
             return Task.Run(() =>

@@ -10,7 +10,12 @@ namespace MiljoBoven.Controllers
 {
     public class CitizienController : Controller
     {
+        private IEnvironmentCrimeRepository repository;
 
+        public CitizienController(IEnvironmentCrimeRepository repo)
+        {
+            repository = repo;
+        }
         public ViewResult Validate()
         {
             ViewBag.Title = "Bekräfta - Medlem";
@@ -31,6 +36,7 @@ namespace MiljoBoven.Controllers
             ViewBag.Title = "Tack - Medlem";
             var errand = HttpContext.Session.GetJson<Errand>("NewErrand");
             // Metod behövs för att spara errand
+            repository.SaveErrand(errand);
             HttpContext.Session.Remove("NewErrand");
             return View(errand);
         }
