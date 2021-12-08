@@ -25,7 +25,7 @@ namespace MiljoBoven.Controllers
         [HttpPost] // Script på serversidan
         public ViewResult Validate(Errand errand)
         {
-
+            ViewBag.Title = "Bekräfta - Samordnare";
             HttpContext.Session.SetJson("NewErrand", errand);
             return View(errand);
         }
@@ -34,6 +34,7 @@ namespace MiljoBoven.Controllers
             ViewBag.Title = "Tack - Samordnare";
             var errand = HttpContext.Session.GetJson<Errand>("NewErrand");
             // Metod för att spara
+            repository.SaveErrand(errand);
             HttpContext.Session.Remove("NewErrand");
             return View(errand);
         }
