@@ -8,7 +8,7 @@ namespace MiljoBoven.Models
     {
         public String RefNumber { get; set; }
 
-        public int ErrandID{ get; set; }
+        public int ErrandId{ get; set; }
 
         [Required(ErrorMessage = "Du måste fylla i vart brottet skedde någonstans.")]
         public String Place { get; set; }

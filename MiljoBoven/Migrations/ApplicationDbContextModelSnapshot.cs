@@ -53,7 +53,7 @@ namespace MiljoBoven.Migrations
 
             modelBuilder.Entity("MiljoBoven.Models.Errand", b =>
                 {
-                    b.Property<int>("ErrandID")
+                    b.Property<int>("ErrandId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -98,7 +98,7 @@ namespace MiljoBoven.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ErrandID");
+                    b.HasKey("ErrandId");
 
                     b.ToTable("Errands");
                 });

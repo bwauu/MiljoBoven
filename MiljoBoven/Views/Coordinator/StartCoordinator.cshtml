@@ -27,16 +27,20 @@
     </tr>
     <tr>
         <td>
-            <select name="status">
-                <option selected="selected">Välj alla</option>
-                @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
-                {
-                    <option>@errandStatus.StatusName</option>
-                }
-            </select>
-        </td>
-        <td>
+            <form asp-controller="Home" asp-action="SaveCourse" method="post">
+                <select name="status">
+                    <option selected="selected" asp-for="ErrandId">Välj alla</option>
+                    @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
+                    {
+                        <option>@errandStatus.StatusName</option>
+                    }
+                </select>
+                <p><input type="submit" value="Hämta lista"</p>
+            </form>
 
+        </td>
+
+        <td>
             <select name="department">
                 <option selected="selected">Välj alla</option>
                 @foreach (Department department in Model.Departments)
@@ -72,7 +76,7 @@
         <tr>
             <td>@errand.DateOfObservation.ToShortDateString()</td> @* Har tagit bort ToString() *@
             <td>
-                <a asp-controller="Coordinator" asp-action="CrimeCoordinator" asp-route-id="@errand.ErrandID">@errand.RefNumber</a>
+                <a asp-controller="Coordinator" asp-action="CrimeCoordinator" asp-route-id="@errand.ErrandId">@errand.RefNumber</a>
             </td>
             <td>@errand.TypeOfCrime</td>
             <td>@errand.StatusId</td>

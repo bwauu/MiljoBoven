@@ -30,7 +30,7 @@ namespace MiljoBoven.Models
 
         public void SaveErrand(Errand errand)
         {
-            if (errand.ErrandID == 0)
+            if (errand.ErrandId == 0)
             {
                 var sequence = Sequences.Where(seq => seq.Id == 1).First();
                 errand.RefNumber = "2021-45-" + sequence.CurrentValue;
@@ -44,7 +44,7 @@ namespace MiljoBoven.Models
         {
             return Task.Run(() =>
             {
-                var errandDetail = Errands.Where(er => er.ErrandID == id).First();
+                var errandDetail = Errands.Where(er => er.ErrandId == id).First();
                 return errandDetail;
             });
         }
