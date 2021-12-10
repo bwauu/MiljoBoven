@@ -30,12 +30,12 @@ namespace MiljoBoven.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SaveEmployee(bool noAction, string EmployeeId, string InvestigatorInfo)
+        public async Task<IActionResult> SaveEmployee(bool isActionChecked, string EmployeeId, string InvestigatorInfo)
         {
             int someID = int.Parse(TempData["ID"].ToString());
 
 
-            if (noAction != true)
+            if (isActionChecked != true)
             {
                 if (EmployeeId != null || EmployeeId != "Välj")
                 {
@@ -43,7 +43,7 @@ namespace MiljoBoven.Controllers
                     repository.UpdateStatus(someID, "S_A");
                 }
             }
-            if (noAction == true)
+            if (isActionChecked == true)
             {
                 repository.UpdateStatus(someID, "S_B");
                 repository.UpdateEmployee(someID, EmployeeId);
