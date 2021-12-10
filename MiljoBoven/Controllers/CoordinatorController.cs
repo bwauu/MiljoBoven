@@ -62,10 +62,26 @@ namespace MiljoBoven.Controllers
         public ViewResult CrimeCoordinator(int id)
         {
             ViewBag.Title = "Brottskoordinator - Samordnare";
+            TempData["ID"] = id;
+            ViewBag.ListOfDepartments = repository.Departments;
             ViewBag.ID = id;
-            return View(repository);
+
+            return View(); ;
+
         }
 
+        public async Task<IActionResult> RefreshDepartment(string DepartmentId)
+        {
+            int someID = int.Parse(TempData["ID"].ToString());
 
+
+            if (DepartmentId != null || DepartmentId != "Välj" || DepartmentId != "Småstads kommun")
+            {
+                repository.UpdateDepartment(someID, DepartmentId);
+            }
+            return RedirectToAction("CrimeCoordinator", new { id = someID });
+        }
+
+       
     }
 }

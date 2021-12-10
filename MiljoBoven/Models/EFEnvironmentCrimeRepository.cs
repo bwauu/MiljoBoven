@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace MiljoBoven.Models
 {
@@ -47,6 +49,18 @@ namespace MiljoBoven.Models
                 var errandDetail = Errands.Where(er => er.ErrandId == id).First();
                 return errandDetail;
             });
+        }
+
+        public void UpdateDepartment(int id, string DepartmentId)
+        {
+            Errand dbEntry = context.Errands.FirstOrDefault(e => e.ErrandId == id);
+            if (dbEntry != null)
+            {
+                dbEntry.DepartmentId = DepartmentId;
+
+            }
+          
+            context.SaveChanges();
         }
     }
 }

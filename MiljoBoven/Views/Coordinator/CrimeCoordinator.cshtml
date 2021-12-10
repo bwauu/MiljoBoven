@@ -1,4 +1,4 @@
-@model IEnvironmentCrimeRepository
+@model Department
 @{
   Layout = "_CoordinatorLayout";
 }
@@ -9,17 +9,15 @@
 
 @await Component.InvokeAsync("ShowOneErrand", ViewBag.ID)
 
-
 <section id="bottomColumn">
-  <h3>Redigera ärende</h3>
-  <p>Ange enhet: 
-    <select name="department">
-      <option selected="selected">Välj</option>
-      @foreach (Department department in Model.Departments)
-      {
-        <option value="@department.DepartmentId">@department.DepartmentName</option>
-      }
-    </select>
-  </p>
-  <p><input class="button" type="submit" value="Spara" /></p>
+    <h3>Redigera ärende</h3>
+    <form method="post" asp-controller="Coordinator" asp-action="RefreshDepartment">
+        <p>
+            Ange enhet:
+            <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId", "DepartmentName"))">
+                <option>Välj</option>
+            </select>
+        </p>
+        <p><input class="button" type="submit" value="Spara" /></p>
+    </form>
 </section>

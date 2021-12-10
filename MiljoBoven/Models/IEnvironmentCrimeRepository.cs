@@ -17,6 +17,8 @@ namespace MiljoBoven.Models
         Task<Errand> GetErrandDetail(int id);
 
         void SaveErrand(Errand errand);
+
+        void UpdateDepartment(int id, string DepartmentId);
     }
 
 }
