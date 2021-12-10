@@ -21,7 +21,7 @@ namespace MiljoBoven.Controllers
             ViewBag.Title = "Bekräfta - Samordnare";
             return View();
         }
-        
+
         [HttpPost] // Script på serversidan
         public ViewResult Validate(Errand errand)
         {
@@ -49,7 +49,7 @@ namespace MiljoBoven.Controllers
         {
             ViewBag.Title = "Rapportera brott - Samordnare ";
             var newErrand = HttpContext.Session.GetJson<Errand>("NewErrand");
-            if(newErrand == null)
+            if (newErrand == null)
             {
                 return View();
             }
@@ -59,29 +59,32 @@ namespace MiljoBoven.Controllers
             }
         }
 
+
         public ViewResult CrimeCoordinator(int id)
         {
             ViewBag.Title = "Brottskoordinator - Samordnare";
-            TempData["ID"] = id;
-            ViewBag.ListOfDepartments = repository.Departments;
+            TempData["ID"] = id; // Via event i vyn anropas en metod
+            ViewBag.ListOfDepartments = repository.Departments; // ViewBag i vyn crimecoordinator
             ViewBag.ID = id;
 
             return View(); ;
-
         }
 
-        public async Task<IActionResult> RefreshDepartment(string DepartmentId)
-        {
+        public async Task<IActionResult> SaveDepartment(string DepartmentId) // Hjälpmetod asp-for"
+        {   // DepartmentId är det fält/attribut som man vill ska skickas tillbaka dvs asp-for
+            //
             int someID = int.Parse(TempData["ID"].ToString());
 
 
-            if (DepartmentId != null || DepartmentId != "Välj" || DepartmentId != "Småstads kommun")
+            if (DepartmentId != null || DepartmentId != "Välj")
             {
                 repository.UpdateDepartment(someID, DepartmentId);
             }
             return RedirectToAction("CrimeCoordinator", new { id = someID });
+
+
         }
 
-       
+
     }
 }

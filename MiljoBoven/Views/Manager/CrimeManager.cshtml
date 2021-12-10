@@ -1,4 +1,4 @@
-@model IEnvironmentCrimeRepository
+@model Errand
 @{
     Layout = "_ManagerLayout";
 }
@@ -10,19 +10,19 @@
 
 <section id="bottomColumn">
     <h3>Redigera ärende</h3>
-    <p>
-        Ange handläggare:
-        <select name="investigator">
-            <option selected="selected">Välj</option>
-            @foreach (Employee employee in Model.Employees)
-            {
-                <option value="@employee.EmployeeId">@employee.EmployeeName</option>
-            }
-       
-        </select>
-    </p>
-    <p><input type="checkbox" name="noAction" value="true"/> Ingen åtgärd: <input type="text" name="reason" value="Ange motivering"/></p>
-    <p>
-        <input class="button" type="submit" value="Spara"/>
-    </p>
+    <form method="post" asp-controller="Manager" asp-action="SaveEmployee">
+        <p>
+            Ange handläggare:
+            <select asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.ListOfEmployees, "EmployeeId", "EmployeeName"))">
+                <option>Välj</option>
+            </select>
+        </p>
+
+
+        <p>
+            <input type="checkbox" name="noAction" value="true" />
+            Ingen åtgärd: <input asp-for="InvestigatorInfo" type="text" />
+        </p>
+        <p><input class="button" type="submit" value="Spara" /></p>
+    </form>
 </section>

@@ -19,15 +19,40 @@ namespace MiljoBoven.Controllers
         public ViewResult StartManager()
         {
             ViewBag.Title = "Start - Avdelningschef";
+            return View(repository);
+        }
 
-            return View(repository);
-        }
-        
         public ViewResult CrimeManager(int id)
-        {   
+        {
             ViewBag.Title = "Brott - Avdelningschef";
+            ViewBag.ListOfEmployees = repository.Employees;
             ViewBag.ID = id;
-            return View(repository);
+            return View();
         }
+
+        public async Task<IActionResult> SaveEmployee(bool noAction, string EmployeeId, string InvestigatorInfo)
+        {
+            int someID = int.Parse(TempData["ID"].ToString());
+
+
+            if (noAction != true)
+            {
+                if (EmployeeId != null || EmployeeId != "Välj")
+                {
+                    repository.UpdateEmployee(someID, EmployeeId);
+                    repository.UpdateStatus(someID, "S_A");
+                }
+            }
+            if (noAction == true)
+            {
+                repository.UpdateStatus(someID, "S_B");
+                repository.UpdateEmployee(someID, EmployeeId);
+                repository.UpdateInfo(someID, InvestigatorInfo);
+            }
+
+            return RedirectToAction("CrimeManager", new { id = someID });
+
+        }
+
     }
 }

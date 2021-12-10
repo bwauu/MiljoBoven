@@ -1,6 +1,6 @@
 @model Department
 @{
-  Layout = "_CoordinatorLayout";
+    Layout = "_CoordinatorLayout";
 }
 
 <h2>Detaljer för ärendet</h2>
@@ -8,13 +8,23 @@
 
 
 @await Component.InvokeAsync("ShowOneErrand", ViewBag.ID)
-
+@* TO DO -->
+    Vi börjar med samordnaren som ska kunna välja vilken avdelning som ska ha ansvar för ärendet.
+    Observera att den enda avdelningen som inte ska väljas är Småstads Kommun då den är en
+    övergripande enhet och inte har någon chef eller handläggaren knuten till sig. Endast
+    samordnaren är kopplad till den avdelningen.
+    När samordnaren valt avdelning och väljer att spara så ska ärendet uppdateras med avdelningsid,
+    vilket ska synas på både sidan där tabellen med ärenden finns och på ärendets detaljsida.
+    Du väljer själv om man ska vara kvar på detaljsidan när man tryckt spara eller om man hamnar på
+    startsidan där alla ärenden syns.
+    Tänk på att om man trycker på spara när ingen avdelning är vald så ska inget hända < -- TO DO
+*@
 <section id="bottomColumn">
     <h3>Redigera ärende</h3>
-    <form method="post" asp-controller="Coordinator" asp-action="RefreshDepartment">
+    <form method="post" asp-controller="Coordinator" asp-action="SaveDepartment">
         <p>
             Ange enhet:
-            <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId", "DepartmentName"))">
+            <select asp-for="DepartmentId" asp-items="@(new SelectList(ViewBag.ListOfDepartments, "DepartmentId", "DepartmentName"))"> @*DI för target attribute DN för det värdet som skall updateras*@
                 <option>Välj</option>
             </select>
         </p>
