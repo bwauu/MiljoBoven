@@ -30,27 +30,29 @@ namespace MiljoBoven.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SaveEmployee(bool isActionChecked, string EmployeeId, string InvestigatorInfo)
+        public async Task<IActionResult> SaveEmployee(bool noAction, string EmployeeId, string InvestigatorInfo)
         {
-            int someID = int.Parse(TempData["ID"].ToString());
+            int someNewValue = int.Parse(TempData["ID"].ToString());
 
 
-            if (isActionChecked != true)
+            if (noAction == false) // Om checkboxen är checkad =>
             {
-                if (EmployeeId != null || EmployeeId != "Välj")
-                {
-                    repository.UpdateEmployee(someID, EmployeeId);
-                    repository.UpdateStatus(someID, "S_A");
+                if (EmployeeId != null && EmployeeId != "Välj")
+                {   
+                    
+                    repository.UpdateEmployee(someNewValue, EmployeeId);
+                    repository.UpdateStatus(someNewValue, "S_A");
                 }
             }
-            if (isActionChecked == true)
-            {
-                repository.UpdateStatus(someID, "S_B");
-                repository.UpdateEmployee(someID, EmployeeId);
-                repository.UpdateInfo(someID, InvestigatorInfo);
+            if (noAction == true) // Om checkbox är inte checkad
+            {   
+                EmployeeId = "";
+                repository.UpdateStatus(someNewValue, "S_B");
+                repository.UpdateEmployee(someNewValue, EmployeeId);
+                repository.UpdateInfo(someNewValue, InvestigatorInfo);
             }
 
-            return RedirectToAction("CrimeManager", new { id = someID });
+            return RedirectToAction("CrimeManager", new { id = someNewValue });
 
         }
 

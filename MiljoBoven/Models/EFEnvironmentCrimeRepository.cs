@@ -28,17 +28,6 @@ namespace MiljoBoven.Models
         public IQueryable<Sample> Samples => context.Samples;
         public IQueryable<Sequence> Sequences => context.Sequences;
 
-        // Task<Errand> GetErrandDetail(int id);
-
-        public void SaveTest()
-        {
-            context.SaveChanges();
-        }
-
-        public IEnumerable<Errand> SelectAll()
-        {
-            return context.Errands.ToList();
-        }
         public void SaveErrand(Errand errand)
         {
             if (errand.ErrandId == 0)
@@ -61,25 +50,23 @@ namespace MiljoBoven.Models
             });
         }
 
-        public void UpdateDepartment(int id, string DepartmentId)
+        public void UpdateDepartment(int someValue, string someNewValue)
         {
-            Errand entity = context.Errands.FirstOrDefault(err => err.ErrandId == id);
-            
-            if (entity != null)
+            var existingResult = context.Errands.SingleOrDefault(err => err.ErrandId == someValue);
+         
+            if (existingResult != null)
             {
-                entity.DepartmentId = DepartmentId;
-
+                existingResult.DepartmentId = someNewValue; // Is this query result.DepartmentId the same as the new value string DepartmentId? aka result.SomeValue
             }
-          
             context.SaveChanges();
         }
-        public void UpdateEmployee(int id, string EmployeeId)
+        public void UpdateEmployee(int someValue, string someNewValue)
         {
 
-            Errand dbEntry = context.Errands.FirstOrDefault(e => e.ErrandId == id);
-            if (dbEntry != null)
+            var existingResult = context.Errands.SingleOrDefault(err => err.ErrandId == someValue);
+            if (existingResult != null)
             {
-                dbEntry.EmployeeId = EmployeeId;
+                existingResult.EmployeeId = someNewValue;
             }
             context.SaveChanges();
         }
@@ -87,10 +74,10 @@ namespace MiljoBoven.Models
         public void UpdateStatus(int id, string StatusId)
         {
 
-            Errand dbEntry = context.Errands.FirstOrDefault(e => e.ErrandId == id);
-            if (dbEntry != null)
+            var existingResult = context.Errands.FirstOrDefault(e => e.ErrandId == id);
+            if (existingResult != null)
             {
-                dbEntry.StatusId = StatusId;
+                existingResult.StatusId = StatusId;
 
             }
             context.SaveChanges();
@@ -98,20 +85,20 @@ namespace MiljoBoven.Models
 
         public void UpdateInfo(int id, string InvestigatorInfo)
         {
-            Errand dbEntry = context.Errands.FirstOrDefault(e => e.ErrandId == id);
-            if (dbEntry != null)
+            var existingResult = context.Errands.FirstOrDefault(e => e.ErrandId == id);
+            if (existingResult != null)
             {
-                dbEntry.InvestigatorInfo = dbEntry.InvestigatorInfo + ";" + InvestigatorInfo;
+                existingResult.InvestigatorInfo = "" + InvestigatorInfo;
             }
             context.SaveChanges();
         }
         public void UpdateAction(int id, string InvestigatorAction)
         {
-            Errand dbEntry = context.Errands.FirstOrDefault(e => e.ErrandId == id);
-            if (dbEntry != null)
+            Errand existingResult = context.Errands.FirstOrDefault(e => e.ErrandId == id);
+            if (existingResult != null)
             {
 
-                dbEntry.InvestigatorAction = dbEntry.InvestigatorAction + ";" + InvestigatorAction;
+                existingResult.InvestigatorAction = existingResult.InvestigatorAction + "" + InvestigatorAction;
 
             }
             context.SaveChanges();

@@ -71,16 +71,15 @@ namespace MiljoBoven.Controllers
         }
 
         public async Task<IActionResult> SaveDepartment(string DepartmentId) // Hjälpmetod asp-for"
-        {   // DepartmentId är det fält/attribut som man vill ska skickas tillbaka dvs asp-for
-            //
-            int someID = int.Parse(TempData["ID"].ToString());
+        {   // DepartmentId == SomeNewValue
+            // 
+            int someIDValue = int.Parse(TempData["ID"].ToString()); // Refererar till ett ID av någotslag.
 
-
-            if (DepartmentId != null || DepartmentId != "Välj")
+            if (DepartmentId != null && DepartmentId != "Välj" && DepartmentId != "D00")
             {
-                repository.UpdateDepartment(someID, DepartmentId);
+                repository.UpdateDepartment(someIDValue, DepartmentId);
             }
-            return RedirectToAction("CrimeCoordinator", new { id = someID });
+            return RedirectToAction("CrimeCoordinator", new { id = someIDValue });
 
 
         }

@@ -8,6 +8,10 @@ namespace MiljoBoven.Models
 {
     public class ApplicationDbContext: DbContext
     {
+        public ApplicationDbContext()
+        {
+        }
+
         // To use the DbContext class we need a constructor
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
         // DBBS1

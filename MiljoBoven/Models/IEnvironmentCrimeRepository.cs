@@ -30,10 +30,6 @@ namespace MiljoBoven.Models
 
         void UpdatePictures(Picture picture);
 
-        void UpdateTest(Errand obj);
-        void InsertTest(Errand obj);
-        void SaveTest();
-        IEnumerable<Errand> SelectAll();
     }
 
 }
