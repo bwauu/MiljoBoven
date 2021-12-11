@@ -35,7 +35,7 @@ namespace MiljoBoven.Controllers
             ViewBag.ID = id;
             return View(repository);
         }
-
+        /*
         public async Task<IActionResult> UploadFiles(IFormFile documents)
         {
             // Den temporära sökvägen
@@ -66,6 +66,78 @@ namespace MiljoBoven.Controllers
             return View("SavedFile");
 
 
+            */
+
+        public async Task<IActionResult> Uploads(IFormFile loadSample, IFormFile loadImage, string events, string information, string StatusId)
+        {
+            int someID = int.Parse(TempData["ID"].ToString());
+
+
+
+            if (StatusId != null && StatusId != "Välj")
+            {
+                repository.UpdateStatus(someID, StatusId);
+            }
+
+            if (events != null)
+            {
+                repository.UpdateAction(someID, events);
+            }
+
+            if (information != null)
+            {
+                repository.UpdateInfo(someID, information);
+            }
+
+            var tempPath = Path.GetTempFileName();
+
+            if (loadSample != null || loadImage != null)
+            {
+
+                if (loadSample != null || loadSample.Length > 0)
+                {
+                    using (var stream = new FileStream(tempPath, FileMode.Create))
+                    {
+                        await loadSample.CopyToAsync(stream);
+                    }
+                    var samplePath = Path.Combine(environment.WebRootPath, "samples", loadSample.FileName);
+                    System.IO.File.Move(tempPath, samplePath);
+
+                    ViewBag.FileName = loadSample.FileName;
+                    ViewBag.Path = samplePath;
+                }
+
+                var updateSample = new Sample { ErrandId = someID, SampleName = loadSample.FileName };
+
+                repository.UpdateSamples(updateSample);
+
+                if (loadImage != null || loadImage.Length > 0)
+                {
+                    using (var stream = new FileStream(tempPath, FileMode.Create))
+                    {
+                        await loadImage.CopyToAsync(stream);
+                    }
+
+                    var imagePath = Path.Combine(environment.WebRootPath, "pictures", loadImage.FileName);
+
+                    System.IO.File.Move(tempPath, imagePath);
+
+                    ViewBag.FileName = loadImage.FileName;
+                    ViewBag.Path = imagePath;
+                }
+
+                var updatePicture = new Picture { ErrandId = someID, PictureName = loadImage.FileName };
+
+                repository.UpdatePictures(updatePicture);
+
+                return RedirectToAction("CrimeInvestigator", new { id = someID });
+
+            }
+            else
+            {
+                return RedirectToAction("CrimeInvestigator", new { id = someID });
+
+            }
 
 
         }

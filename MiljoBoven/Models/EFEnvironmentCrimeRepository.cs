@@ -74,7 +74,7 @@ namespace MiljoBoven.Models
         public void UpdateStatus(int id, string StatusId)
         {
 
-            var existingResult = context.Errands.FirstOrDefault(e => e.ErrandId == id);
+            var existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == id);
             if (existingResult != null)
             {
                 existingResult.StatusId = StatusId;
@@ -85,7 +85,7 @@ namespace MiljoBoven.Models
 
         public void UpdateInfo(int id, string InvestigatorInfo)
         {
-            var existingResult = context.Errands.FirstOrDefault(e => e.ErrandId == id);
+            var existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == id);
             if (existingResult != null)
             {
                 existingResult.InvestigatorInfo = "" + InvestigatorInfo;
@@ -94,7 +94,7 @@ namespace MiljoBoven.Models
         }
         public void UpdateAction(int id, string InvestigatorAction)
         {
-            Errand existingResult = context.Errands.FirstOrDefault(e => e.ErrandId == id);
+            Errand existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == id);
             if (existingResult != null)
             {
 

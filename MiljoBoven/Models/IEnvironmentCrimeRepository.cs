@@ -29,7 +29,7 @@ namespace MiljoBoven.Models
         void UpdateSamples(Sample sample);
 
         void UpdatePictures(Picture picture);
-
+        void UpdateAction(int someID, string events);
     }
 
 }
