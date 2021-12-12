@@ -39,7 +39,7 @@ namespace MiljoBoven.Controllers
 
             if (noAction == false) // Om checkboxen är checkad => 
             {
-                if (EmployeeId != null || EmployeeId != "Välj")
+                if (EmployeeId != null && EmployeeId != "Välj")
                 {   
                     
                     repository.UpdateEmployee(someIDValue, EmployeeId);
@@ -48,9 +48,8 @@ namespace MiljoBoven.Controllers
             }
             if (noAction == true) // Om checkbox är inte checkad
             {   
-                EmployeeId = "";
+          
                 repository.UpdateStatus(someIDValue, "S_B");
-                repository.UpdateEmployee(someIDValue, EmployeeId);
                 repository.UpdateInfo(someIDValue, InvestigatorInfo);
             }
 

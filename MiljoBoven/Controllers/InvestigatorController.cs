@@ -56,12 +56,12 @@ namespace MiljoBoven.Controllers
                 repository.UpdateStatus(someID, StatusId);
             }
 
-            if (events.Any())
+            if (events == null)
             {
                 repository.UpdateAction(someID, events);
             }
 
-            if (information.Any())
+            if (information == null)
             {
                 repository.UpdateInfo(someID, information);
             }
