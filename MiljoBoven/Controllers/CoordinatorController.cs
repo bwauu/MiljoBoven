@@ -72,7 +72,7 @@ namespace MiljoBoven.Controllers
 
         public async Task<IActionResult> SaveDepartment(string DepartmentId) // Hjälpmetod asp-for"
         {   // DepartmentId == SomeNewValue
-            // 
+       
             int someIDValue = int.Parse(TempData["ID"].ToString()); // Refererar till ett ID av någotslag.
 
             if (DepartmentId != null && DepartmentId != "Välj" && DepartmentId != "D00")
