@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
@@ -34,5 +35,7 @@ namespace MiljoBoven.Models
         public String StatusId { get; set; }
         public String DepartmentId { get; set; }
         public String EmployeeId { get; set; }
+        public ICollection<Sample> Samples { get; set; }
+        public ICollection<Picture> Pictures { get; set; }
     }
 }

@@ -124,14 +124,6 @@ namespace MiljoBoven.Models
             context.SaveChanges();
         }
 
-        public void UpdateTest(Errand obj)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void InsertTest(Errand obj)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
