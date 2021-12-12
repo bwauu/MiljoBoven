@@ -26,6 +26,7 @@ namespace MiljoBoven
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddTransient<IEnvironmentCrimeRepository, EFEnvironmentCrimeRepository>();  // Här talar vi om att vi vill arbeta med Interfacet och implementeringen
             services.AddControllersWithViews();
             services.AddSession();

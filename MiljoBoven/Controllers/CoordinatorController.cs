@@ -62,7 +62,6 @@ namespace MiljoBoven.Controllers
 
         public ViewResult CrimeCoordinator(int id)
         {   
-            var errandDetail = repository.GetErrandDetail(id);
             ViewBag.Title = "Brottskoordinator - Samordnare";
             TempData["ID"] = id; // Via event i vyn anropas en metod
             ViewBag.ListOfDepartments = repository.Departments; // ViewBag i vyn crimecoordinator
