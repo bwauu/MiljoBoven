@@ -56,31 +56,33 @@ namespace MiljoBoven.Controllers
                 repository.UpdateStatus(someID, StatusId);
             }
 
-            if (events == null)
+            if (events != null)
             {
                 repository.UpdateAction(someID, events);
             }
 
-            if (information == null)
+            if (information != null)
             {
                 repository.UpdateInfo(someID, information);
             }
-
+            // Den temporära sökvägen
             var tempPath = Path.GetTempFileName();
 
             if (loadSample != null || loadPicture != null)
             {
-
-                if (loadSample != null || loadSample.Length > 0)
+                // Om det är sant så finns det innehåll.
+                if (loadSample.Length > 0)
                 {
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + loadSample.FileName;  // Guid.NewGuid metoden skapar ett nytt globalt user id 
+                    // Efter ovanstående kod exekveras så vill öppna en ström för denna fil.
                     using (var stream = new FileStream(tempPath, FileMode.Create))
                     {
-                        await loadSample.CopyToAsync(stream);
+                        await loadSample.CopyToAsync(stream); // Kopplar till strömmen.
                     }
-                    var samplePath = Path.Combine(enviroment.WebRootPath, "samples", loadSample.FileName);
+                    var samplePath = Path.Combine(enviroment.WebRootPath, "samples", uniqueFileName);
                     System.IO.File.Move(tempPath, samplePath);
-
-                    ViewBag.FileName = loadSample.FileName;
+                    
+                    ViewBag.FileName = uniqueFileName;
                     ViewBag.Path = samplePath;
                 }
 
@@ -88,14 +90,15 @@ namespace MiljoBoven.Controllers
 
                 repository.UpdateSamples(updateSample);
 
-                if (loadPicture != null || loadPicture.Length > 0)
+                if (loadPicture.Length > 0)
                 {
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + loadPicture.FileName;  // Guid.NewGuid metoden skapar ett nytt globalt user id 
                     using (var stream = new FileStream(tempPath, FileMode.Create))
                     {
                         await loadPicture.CopyToAsync(stream);
                     }
 
-                    var picturePath = Path.Combine(enviroment.WebRootPath, "pictures", loadPicture.FileName);
+                    var picturePath = Path.Combine(enviroment.WebRootPath, "pictures", uniqueFileName);
 
                     System.IO.File.Move(tempPath, picturePath);
 
