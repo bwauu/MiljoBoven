@@ -45,30 +45,30 @@ namespace MiljoBoven.Controllers
         }
 
 
-        public async Task<IActionResult> UploadFiles(IFormFile loadSample, IFormFile loadImage, string events, string information, string StatusId)
+        public async Task<IActionResult> UploadFiles(IFormFile loadSample, IFormFile loadPicture, string events, string information, string StatusId)
         {
             int someID = int.Parse(TempData["ID"].ToString());
 
 
 
-            if (StatusId != null && StatusId != "Välj")
+            if (StatusId != null && StatusId != "Välj" && StatusId != "S_A" && StatusId != "S_B")
             {
                 repository.UpdateStatus(someID, StatusId);
             }
 
-            if (events != null)
+            if (events.Any())
             {
                 repository.UpdateAction(someID, events);
             }
 
-            if (information != null)
+            if (information.Any())
             {
                 repository.UpdateInfo(someID, information);
             }
 
             var tempPath = Path.GetTempFileName();
 
-            if (loadSample != null || loadImage != null)
+            if (loadSample != null || loadPicture != null)
             {
 
                 if (loadSample != null || loadSample.Length > 0)
@@ -88,22 +88,22 @@ namespace MiljoBoven.Controllers
 
                 repository.UpdateSamples(updateSample);
 
-                if (loadImage != null || loadImage.Length > 0)
+                if (loadPicture != null || loadPicture.Length > 0)
                 {
                     using (var stream = new FileStream(tempPath, FileMode.Create))
                     {
-                        await loadImage.CopyToAsync(stream);
+                        await loadPicture.CopyToAsync(stream);
                     }
 
-                    var imagePath = Path.Combine(enviroment.WebRootPath, "pictures", loadImage.FileName);
+                    var picturePath = Path.Combine(enviroment.WebRootPath, "pictures", loadPicture.FileName);
 
-                    System.IO.File.Move(tempPath, imagePath);
+                    System.IO.File.Move(tempPath, picturePath);
 
-                    ViewBag.FileName = loadImage.FileName;
-                    ViewBag.Path = imagePath;
+                    ViewBag.FileName = loadPicture.FileName;
+                    ViewBag.Path = picturePath;
                 }
 
-                var updatePicture = new Picture { ErrandId = someID, PictureName = loadImage.FileName };
+                var updatePicture = new Picture { ErrandId = someID, PictureName = loadPicture.FileName };
 
                 repository.UpdatePictures(updatePicture);
 

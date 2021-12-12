@@ -20,13 +20,24 @@ namespace MiljoBoven.Models
         // Next step is to implement all behaviors from the interface. As follows
 
         public IQueryable<Department> Departments => context.Departments;
-        public IQueryable<Errand> Errands => context.Errands;
+        public IQueryable<Errand> Errands => context.Errands.Include(e => e.Samples).Include(e => e.Pictures);
 
         public IQueryable<ErrandStatus> ErrandStatuses => context.ErrandStatuses;
         public IQueryable<Employee> Employees => context.Employees;
         public IQueryable<Picture> Pictures => context.Pictures;
         public IQueryable<Sample> Samples => context.Samples;
         public IQueryable<Sequence> Sequences => context.Sequences;
+        public void Update(Errand errand)
+        {
+            var errandObj = context.Errands.Where(e => e.ErrandId == errand.ErrandId).FirstOrDefault();
+            errandObj.DateOfObservation = errand.DateOfObservation;
+            errandObj.DepartmentId = errand.DepartmentId;
+            errandObj.EmployeeId = errand.EmployeeId;
+            errandObj.ErrandId = errand.ErrandId;
+            errandObj.InformerName = errand.InformerName;
+            errandObj.InformerPhone = errand.InformerPhone;
+            context.SaveChanges();
+        }
 
         public void SaveErrand(Errand errand)
         {
@@ -71,34 +82,33 @@ namespace MiljoBoven.Models
             context.SaveChanges();
         }
 
-        public void UpdateStatus(int id, string StatusId)
+        public void UpdateStatus(int someValue, string someNewValue)
         {
 
-            var existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == id);
+            var existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == someValue);
             if (existingResult != null)
             {
-                existingResult.StatusId = StatusId;
+                existingResult.StatusId = someNewValue;
 
             }
             context.SaveChanges();
         }
 
-        public void UpdateInfo(int id, string InvestigatorInfo)
+        public void UpdateInfo(int someValue, string someNewValue)
         {
-            var existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == id);
+            var existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == someValue);
             if (existingResult != null)
             {
-                existingResult.InvestigatorInfo = "" + InvestigatorInfo;
+                existingResult.InvestigatorInfo = existingResult.InvestigatorInfo + " " + someNewValue;
             }
             context.SaveChanges();
         }
-        public void UpdateAction(int id, string InvestigatorAction)
+        public void UpdateAction(int someValue, string someNewValue)
         {
-            Errand existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == id);
+            Errand existingResult = context.Errands.SingleOrDefault(e => e.ErrandId == someValue);
             if (existingResult != null)
-            {
-
-                existingResult.InvestigatorAction = existingResult.InvestigatorAction + "" + InvestigatorAction;
+            {     
+                existingResult.InvestigatorAction = existingResult.InvestigatorAction + " " + someNewValue;
 
             }
             context.SaveChanges();
