@@ -16,13 +16,13 @@ namespace MiljoBoven.Controllers
     {
 
         private IEnvironmentCrimeRepository repository;
-        private IWebHostEnvironment enviroment;
+        private IWebHostEnvironment environment;
 
 
         public InvestigatorController(IEnvironmentCrimeRepository repo, IWebHostEnvironment env)
         {
             repository = repo;
-            enviroment = env;
+            environment = env;
 
         }
 
@@ -44,13 +44,13 @@ namespace MiljoBoven.Controllers
             return View(repository);
         }
 
-
-        public async Task<IActionResult> UploadFiles(IFormFile loadSample, IFormFile loadPicture, string events, string information, string StatusId)
+        public async Task<IActionResult> UploadFiles(IFormFile loadSample, IFormFile loadImage, string events, string information, string StatusId)
         {
             int someID = int.Parse(TempData["ID"].ToString());
 
 
-
+            // OM StatusId inte har något värde OCH OM StatusId värde INTE är LIKA MED strängen "Välj" 
+            // OCH OM StatusId INTE är LIKA MED strängen "S_A" OCH OM StatusId INTE är LIKA MED strängen "S_B".
             if (StatusId != null && StatusId != "Välj" && StatusId != "S_A" && StatusId != "S_B")
             {
                 repository.UpdateStatus(someID, StatusId);
@@ -65,61 +65,74 @@ namespace MiljoBoven.Controllers
             {
                 repository.UpdateInfo(someID, information);
             }
+
             // Den temporära sökvägen
             var tempPath = Path.GetTempFileName();
 
-            if (loadSample != null || loadPicture != null)
+            /* ********************************************************************************* FÖR UPPLADNING AV BILDER *************************************************************************** */
+            if (loadImage != null)
+            {
+                // Om det är sant så finns det innehåll.
+                if (loadImage.Length > 0)
+                {
+                    // Efter ovanstående kod exekveras så vill öppna en ström för denna fil.
+                    using (var stream = new FileStream(tempPath, FileMode.Create))
+                    {
+                        await loadImage.CopyToAsync(stream); // Kopplar till strömmen.
+                    }
+                }
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + loadImage.FileName;  // Guid.NewGuid metoden skapar ett nytt globalt user id 
+
+                // Skapa ny sökväg
+                var path = Path.Combine(environment.WebRootPath, "pictures", uniqueFileName); // Mappen måste var skapad innan. wwwroot får ladda ner data.
+
+                //flytta den temporära filen rätt
+                System.IO.File.Move(tempPath, path);
+
+                ViewBag.FileName = uniqueFileName;
+
+                ViewBag.Path = path;
+
+                var newPicture = new Picture { ErrandId = someID, PictureName = uniqueFileName };
+                repository.UpdatePictures(newPicture);
+            }
+
+
+            /* ********************************************************************************* FÖR UPPLADNING AV PROVER *************************************************************************** */
+            if (loadSample != null)
             {
                 // Om det är sant så finns det innehåll.
                 if (loadSample.Length > 0)
                 {
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + loadSample.FileName;  // Guid.NewGuid metoden skapar ett nytt globalt user id 
                     // Efter ovanstående kod exekveras så vill öppna en ström för denna fil.
                     using (var stream = new FileStream(tempPath, FileMode.Create))
                     {
                         await loadSample.CopyToAsync(stream); // Kopplar till strömmen.
                     }
-                    var samplePath = Path.Combine(enviroment.WebRootPath, "samples", uniqueFileName);
-                    System.IO.File.Move(tempPath, samplePath);
-                    
-                    ViewBag.FileName = uniqueFileName;
-                    ViewBag.Path = samplePath;
                 }
 
-                var updateSample = new Sample { ErrandId = someID, SampleName = loadSample.FileName };
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + loadSample.FileName;  // Guid.NewGuid metoden skapar ett nytt globalt user id 
 
-                repository.UpdateSamples(updateSample);
+                // Skapa ny sökväg
+                var path = Path.Combine(environment.WebRootPath, "samples", uniqueFileName); // Mappen måste var skapad innan. wwwroot får ladda ner data.
 
-                if (loadPicture.Length > 0)
-                {
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + loadPicture.FileName;  // Guid.NewGuid metoden skapar ett nytt globalt user id 
-                    using (var stream = new FileStream(tempPath, FileMode.Create))
-                    {
-                        await loadPicture.CopyToAsync(stream);
-                    }
+                //flytta den temporära filen rätt
+                System.IO.File.Move(tempPath, path);
 
-                    var picturePath = Path.Combine(enviroment.WebRootPath, "pictures", uniqueFileName);
+                ViewBag.FileName = uniqueFileName;
 
-                    System.IO.File.Move(tempPath, picturePath);
+                ViewBag.Path = path;
 
-                    ViewBag.FileName = loadPicture.FileName;
-                    ViewBag.Path = picturePath;
-                }
-
-                var updatePicture = new Picture { ErrandId = someID, PictureName = loadPicture.FileName };
-
-                repository.UpdatePictures(updatePicture);
-
-                return RedirectToAction("CrimeInvestigator", new { id = someID });
-
+                var newSample = new Sample { ErrandId = someID, SampleName = uniqueFileName };
+                repository.UpdateSamples(newSample);
             }
-            else
-            {
-                return RedirectToAction("CrimeInvestigator", new { id = someID });
 
-            }
+
+            return RedirectToAction("CrimeInvestigator", new { id = someID });
 
         }
+
     }
 }
 
