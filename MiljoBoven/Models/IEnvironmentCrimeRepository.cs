@@ -17,19 +17,19 @@ namespace MiljoBoven.Models
         IQueryable<Sequence> Sequences { get; }
         Task<Errand> GetErrandDetail(int id);
 
-        void SaveErrand(Errand errand);
-    
-        
+        void SaveErrand(Errand errand); // // SaveErrand implementeras av EFEnvironmentCrimeRepository.cs som senare används i CoordinatorController & CitizenControllers action för respektive vy "Thanks"
+
+
         // int id == someId action som är det användaren väljer och string är gammalt värde.
-        void UpdateDepartment(int id, string DepartmentId);
-        void UpdateEmployee(int id, string DepartmentId);
-        void UpdateStatus(int id, string DepartmentId);
-        void UpdateInfo(int id, string InvestigatorInfo);
+        void UpdateDepartment(int id, string DepartmentId); //  Imp av EFECR.cs används i "SaveManagerActions" som ligger i "ManagerController". & Används i "SaveDepartment" som ligger i "CoordinatorController".
+        void UpdateEmployee(int id, string DepartmentId); //  Imp av EFECR.cs används i "SaveManagerActions" som ligger i "ManagerController".
+        void UpdateStatus(int id, string DepartmentId); //  Imp av EFECR.cs används i "SaveManagerActions" som ligger i "ManagerController". & Används i "UploadFiles" som ligger i "InvestigatorController".
+        void UpdateInfo(int id, string InvestigatorInfo); //  Imp av EFECR.cs används i "SaveManagerActions" som ligger i "ManagerController". & Används i "UploadFiles" som ligger i "InvestigatorController".
+        void UpdateAction(int someID, string events); //  Imp av EFECR.cs Används i "UploadFiles" som ligger i "InvestigatorController".
 
-        void UpdateSamples(Sample sample);
+        void UpdateSamples(Sample sample); //  Imp av EFECR.cs Används i "UploadFiles" som ligger i "InvestigatorController".
 
-        void UpdatePictures(Picture picture);
-        void UpdateAction(int someID, string events);
+        void UpdatePictures(Picture picture); //  Imp av EFECR.cs Används i "UploadFiles" som ligger i "InvestigatorController".
 
 
     }

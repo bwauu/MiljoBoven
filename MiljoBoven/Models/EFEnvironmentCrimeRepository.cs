@@ -27,17 +27,7 @@ namespace MiljoBoven.Models
         public IQueryable<Picture> Pictures => context.Pictures;
         public IQueryable<Sample> Samples => context.Samples;
         public IQueryable<Sequence> Sequences => context.Sequences;
-        public void Update(Errand errand)
-        {
-            var errandObj = context.Errands.Where(e => e.ErrandId == errand.ErrandId).FirstOrDefault();
-            errandObj.DateOfObservation = errand.DateOfObservation;
-            errandObj.DepartmentId = errand.DepartmentId;
-            errandObj.EmployeeId = errand.EmployeeId;
-            errandObj.ErrandId = errand.ErrandId;
-            errandObj.InformerName = errand.InformerName;
-            errandObj.InformerPhone = errand.InformerPhone;
-            context.SaveChanges();
-        }
+
 
         public void SaveErrand(Errand errand)
         {

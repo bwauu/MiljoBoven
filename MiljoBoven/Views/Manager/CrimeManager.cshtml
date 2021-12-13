@@ -10,7 +10,7 @@
 
 <section id="bottomColumn">
     <h3>Redigera ärende</h3>
-    <form method="post" asp-controller="Manager" asp-action="SaveEmployee">
+    <form method="post" asp-controller="Manager" asp-action="SaveManagerActions">
         <p>
             Ange handläggare:
             <select asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.ListOfEmployees, "EmployeeId", "EmployeeName"))">

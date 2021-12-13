@@ -31,7 +31,7 @@ namespace MiljoBoven.Controllers
             return View();
         }
 
-        public async Task<IActionResult> SaveEmployee(bool noAction, string EmployeeId, string InvestigatorInfo)
+        public async Task<IActionResult> SaveManagerActions(bool noAction, string EmployeeId, string InvestigatorInfo)
         {
             // EmployeeId == SomeNewValue
             int someIDValue = int.Parse(TempData["ID"].ToString());
@@ -54,8 +54,6 @@ namespace MiljoBoven.Controllers
             }
 
             return RedirectToAction("CrimeManager", new { id = someIDValue });
-
         }
-
     }
 }
