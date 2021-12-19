@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,8 +12,9 @@ namespace MiljoBoven.Models
         // DBBS2 This method is created for the use of filling the DbSets.
         // Next DBBS3 is needed because our Controllers is working with the Interface IEnvironmentCrimeRepository 
         // DBBS3 is to create a class that implement our Interface. EF
-        public static void EnsurePopulated(ApplicationDbContext context) // Param object of applicationdbcontext class.
+        public static void EnsurePopulated(IServiceProvider services) // Param object of applicationdbcontext class.
         {
+            var context = services.GetRequiredService<ApplicationDbContext>();
             if (!context.Departments.Any())
             {
                 context.Departments.AddRange(

@@ -16,13 +16,20 @@ namespace MiljoBoven
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            InitializeDatabase(host); // Kommer åt services
+            host.Run();
+        }
+
+        private static void InitializeDatabase(IHost host)
+        {
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<ApplicationDbContext>();
-                    DBInitializer.EnsurePopulated(context);
+                    
+                    DBInitializer.EnsurePopulated(services);
+                    IdentityInitializer.EnsurePopulated(services);
                 }
                 catch (Exception ex)
                 {
@@ -30,7 +37,6 @@ namespace MiljoBoven
                     logger.LogError(ex, "Ett fel uppstod när databasen skulle fyllas med data");
                 }
             }
-            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

@@ -10,7 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Identity;
 using MiljoBoven.Models;
 
 namespace MiljoBoven
@@ -26,6 +26,12 @@ namespace MiljoBoven
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDbContext<AppIdentityDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("IdentityConnection")));
+
+            services.AddIdentity<IdentityUser, IdentityRole>
+                ().AddEntityFrameworkStores<AppIdentityDbContext>();
 
             services.AddTransient<IEnvironmentCrimeRepository, EFEnvironmentCrimeRepository>();  // Här talar vi om att vi vill arbeta med Interfacet och implementeringen
             services.AddControllersWithViews();
@@ -43,7 +49,10 @@ namespace MiljoBoven
             app.UseStatusCodePages();
             app.UseStaticFiles();
 
-            app.UseRouting();
+            app.UseRouting(); // Hittar middleware.
+            // auth & author måste komma innan userouting men efter endpoints
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseSession();
 
