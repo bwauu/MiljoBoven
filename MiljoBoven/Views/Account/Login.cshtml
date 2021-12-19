@@ -1,0 +1,31 @@
+﻿@model LoginModel
+<h2>Inloggning för Småstads personal</h2>
+<p class="info">En säker tjänst från Småstads IT-avdelning</p>
+
+<form method="post" asp-controller="Account" asp-action="Login">
+    <p>
+        <input type="hidden" name="isSubmitted" value="true" />
+    </p>
+
+
+    <p>
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" />
+        <span class="label" asp-validation-for="UserName"></span><br />
+    </p>
+    <p>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" />
+        <span asp-validation-for="Password"></span><br />
+    </p>
+    <p>
+        <input type="hidden" asp-for="ReturnURL" />
+    </p>
+    <p>
+        <input type="submit" value="Logga in" />
+    </p>
+    
+    <div asp-validation-summary="All"></div>
+   
+</form>
+
