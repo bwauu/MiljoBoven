@@ -29,7 +29,7 @@ namespace MiljoBoven
                 {
                     
                     DBInitializer.EnsurePopulated(services);
-                    IdentityInitializer.EnsurePopulated(services);
+                    IdentityInitializer.EnsurePopulated(services).Wait();
                 }
                 catch (Exception ex)
                 {
