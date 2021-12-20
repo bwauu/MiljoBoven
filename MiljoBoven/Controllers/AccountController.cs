@@ -39,11 +39,24 @@ namespace MiljoBoven.Controllers
                     await signInManager.SignOutAsync(); // Om användaren är redan inlogga så tas sessionen bort
                     if ((await signInManager.PasswordSignInAsync(user, loginModel.Password, false, false)).Succeeded)
                     {
-                        return Redirect("/Account/Manager");
+                       if(await userManager.IsInRoleAsync(user, "Manager"))
+                        {
+                            return Redirect("/Manager/StartManager");
+                        }
+
+                        if (await userManager.IsInRoleAsync(user, "Coordinator"))
+                        {
+                            return Redirect("/Coordinator/StartCoordinator");
+                        }
+
+                        if (await userManager.IsInRoleAsync(user, "Investigator"))
+                        {
+                            return Redirect("/Investigator/StartInvestigator");
+                        }
                     }
                 }
             }
-            ModelState.AddModelError("", "Felaktigt användarnamn eller lösenord");
+            ModelState.AddModelError("", "Felaktigt användarnamn eller lösenord!");
             return View(loginModel);
         }
 

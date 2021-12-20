@@ -13,12 +13,32 @@ namespace MiljoBoven.Models
         public static async Task EnsurePopulated(IServiceProvider services)
         {
             var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            await CreateRoles(roleManager);
             await CreateUsers(userManager);
         }
         
+        private static async Task CreateRoles(RoleManager<IdentityRole> rManager)
+        {
+            // If the roles doesn't already exists create a new IR.
+            if(!await rManager.RoleExistsAsync("Manager"))
+            {
+                await rManager.CreateAsync(new IdentityRole("Manager"));
+            }
+
+            if (!await rManager.RoleExistsAsync("Coordinator"))
+            {
+                await rManager.CreateAsync(new IdentityRole("Coordinator"));
+            }
+
+            if (!await rManager.RoleExistsAsync("Investigator"))
+            {
+                await rManager.CreateAsync(new IdentityRole("Investigator"));
+            }
+        }
         private static async Task CreateUsers(UserManager<IdentityUser> uManager)
         {
+            /******************************** ADDING new Users in APPLICATION ***************************/
             IdentityUser E001 = new IdentityUser("E001");
             IdentityUser E100 = new IdentityUser("E100");
             IdentityUser E101 = new IdentityUser("E101");
@@ -41,6 +61,8 @@ namespace MiljoBoven.Models
             IdentityUser E502 = new IdentityUser("E502");
             IdentityUser E503 = new IdentityUser("E503");
 
+            /******************************** ADDING Password to User in APPLICATION ***************************/
+
             await uManager.CreateAsync(E001, "Pass01?");
             await uManager.CreateAsync(E100, "Pass02?");
             await uManager.CreateAsync(E101, "Pass03?");
@@ -62,6 +84,32 @@ namespace MiljoBoven.Models
             await uManager.CreateAsync(E501, "Pass19?");
             await uManager.CreateAsync(E502, "Pass20?");
             await uManager.CreateAsync(E503, "Pass21?");
+
+
+            /******************************** ADDING ROLES TO APPLICATION ***************************/
+
+
+            await uManager.AddToRoleAsync(E001, "Coordinator");
+            await uManager.AddToRoleAsync(E100, "Manager");
+            await uManager.AddToRoleAsync(E101, "Investigator");
+            await uManager.AddToRoleAsync(E102, "Investigator");
+            await uManager.AddToRoleAsync(E103, "Investigator");
+            await uManager.AddToRoleAsync(E200, "Manager");
+            await uManager.AddToRoleAsync(E201, "Investigator");
+            await uManager.AddToRoleAsync(E202, "Investigator");
+            await uManager.AddToRoleAsync(E203, "Investigator");
+            await uManager.AddToRoleAsync(E300, "Manager");
+            await uManager.AddToRoleAsync(E301, "Investigator");
+            await uManager.AddToRoleAsync(E302, "Investigator");
+            await uManager.AddToRoleAsync(E303, "Investigator");
+            await uManager.AddToRoleAsync(E400, "Manager");
+            await uManager.AddToRoleAsync(E401, "Investigator");
+            await uManager.AddToRoleAsync(E402, "Investigator");
+            await uManager.AddToRoleAsync(E403, "Investigator");
+            await uManager.AddToRoleAsync(E500, "Manager");
+            await uManager.AddToRoleAsync(E501, "Investigator");
+            await uManager.AddToRoleAsync(E502, "Investigator");
+            await uManager.AddToRoleAsync(E503, "Investigator");
         }
     }
 }
