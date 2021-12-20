@@ -11,16 +11,19 @@ namespace MiljoBoven.Controllers
 {
     [Authorize]
     public class AccountController : Controller
-    {
+    {   
+
+        // UserManager & SignInManager objects declared!
         private UserManager<IdentityUser> userManager;
         private SignInManager<IdentityUser> signInManager;
 
+        // Public AccountController constructor. 
         public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
-        [AllowAnonymous] // alla kan kommma åt sidan
+        [AllowAnonymous] // alla har tillgång till loggin-sidan.
         public ViewResult Login(string returnURL)
         {
             return View(new LoginModel { ReturnURL = returnURL});
@@ -29,10 +32,10 @@ namespace MiljoBoven.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken] // Skyddar mot XXS, taghelper
         public async Task<IActionResult> Login (LoginModel loginModel)
-        {   
-            IdentityUser user = await userManager.FindByNameAsync(loginModel.UserName);
-            
-            if(ModelState.IsValid)
+        {
+            IdentityUser user = await userManager.FindByNameAsync(loginModel.UserName); // Identity "user" object is refering to the LoginModel's UserName type string.
+
+            if (ModelState.IsValid)
             {
                 if (user != null) // kontrollera att namnet finns i db
                 {
@@ -64,6 +67,12 @@ namespace MiljoBoven.Controllers
         {
             await signInManager.SignOutAsync();
             return Redirect(returnURL);
+        }
+
+        [AllowAnonymous]
+        public ViewResult AccessDenied()
+        {
+            return View();
         }
     }
 }
