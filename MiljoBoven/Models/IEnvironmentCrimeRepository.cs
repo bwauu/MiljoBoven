@@ -31,6 +31,11 @@ namespace MiljoBoven.Models
 
         void UpdatePictures(Picture picture); //  Imp av EFECR.cs Används i "UploadFiles" som ligger i "InvestigatorController".
 
+        public IQueryable<MyErrand> GetManagerErrandList();
+        public IQueryable<MyErrand> GetManagerEmployeeList();
+        public IQueryable<MyErrand> GetInvestigatorErrandList();
+        public IQueryable<MyErrand> GetCoordinatorErrandList();
+
 
     }
 

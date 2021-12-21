@@ -23,11 +23,15 @@ namespace MiljoBoven.Controllers
             this.userManager = userManager;
             this.signInManager = signInManager;
         }
+
+
         [AllowAnonymous] // alla har tillgång till loggin-sidan.
         public ViewResult Login(string returnURL)
         {
             return View(new LoginModel { ReturnURL = returnURL});
         }
+
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken] // Skyddar mot XXS, taghelper
@@ -76,3 +80,12 @@ namespace MiljoBoven.Controllers
         }
     }
 }
+
+
+/*
+ * Koppla med join
+ * SELECT A.aId, A.aName, B.bName
+ * FROM A
+ * INNER JOIN B
+ * ON a.aName = B.bName;
+ */

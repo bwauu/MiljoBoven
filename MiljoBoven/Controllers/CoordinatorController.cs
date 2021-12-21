@@ -41,7 +41,7 @@ namespace MiljoBoven.Controllers
 
         public ViewResult StartCoordinator()
         {
-            ViewBag.Title = "Start - Samordnare";
+            ViewBag.Title = "Coordinator";
             return View(repository);
         }
 

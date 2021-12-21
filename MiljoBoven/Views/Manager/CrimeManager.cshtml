@@ -7,18 +7,15 @@
 <p class="info">Du är inloggad som avdelningschef</p>
 
 @await Component.InvokeAsync("ShowOneErrand", ViewBag.ID)
-
 <section id="bottomColumn">
     <h3>Redigera ärende</h3>
     <form method="post" asp-controller="Manager" asp-action="SaveManagerActions">
         <p>
             Ange handläggare:
-            <select asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.ListOfEmployees, "EmployeeId", "EmployeeName"))">
+            <select asp-for="EmployeeId" asp-items="@(new SelectList(ViewBag.ListOfEmployees, "EmployeeName", "EmployeeName"))">
                 <option>Välj</option>
             </select>
         </p>
-
-
         <p>
             <input type="checkbox" name="noAction" value="true" />
             Ingen åtgärd: <input asp-for="InvestigatorInfo" type="text" />

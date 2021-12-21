@@ -16,19 +16,19 @@ namespace MiljoBoven.Controllers
         {
             repository = repo;
         }
-        [Authorize(Roles ="Manager")]
         public ViewResult StartManager()
         {
-            ViewBag.Title = "Start - Avdelningschef";
+            ViewBag.Title = "Manager";
             return View(repository);
         }
 
         public ViewResult CrimeManager(int id)
         {
-            ViewBag.Title = "Brott - Avdelningschef";
-            TempData["ID"] = id; // Via event i vyn anropas en metod
-            ViewBag.ListOfEmployees = repository.Employees;
+            ViewBag.Title = "Manager";
             ViewBag.ID = id;
+            ViewBag.ListOfEmployees = repository.GetManagerEmployeeList();
+            TempData["ID"] = id;
+
             return View();
         }
 

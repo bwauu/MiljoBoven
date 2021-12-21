@@ -7,22 +7,6 @@
 <p class="info">Du är inloggad som handläggare</p>
 @await Component.InvokeAsync("ShowOneErrand", ViewBag.ID)
 
-@*
-
-
-    <form enctype="multipart/form-data" method="post">
-        <dl>
-            <dt>
-                <label asp-for="FileUpload.FormFile"></label>
-            </dt>
-            <dd>
-                <input asp-for="FileUpload.FormFile" type="file">
-                <span asp-validation-for="FileUpload.FormFile"></span>
-            </dd>
-        </dl>
-        <input asp-page-handler="Upload" class="btn" type="submit" value="Upload" />
-    </form>*@
-
 <section id="bottomColumn">
     <form asp-controller="Investigator" asp-action="UploadFiles" method="post" enctype="multipart/form-data" multiple>
 

@@ -35,6 +35,8 @@ namespace MiljoBoven.Models
          * An entity in Entity Framework is a class that maps to a database table. 
          * This class must be included as a DbSet<TEntity> type property in the DbContext class. 
          * EF API maps each entity to a table and each property of an entity to a column in the database.*/
+
+        /************************************************ALL TABLES IN DB************************************* */
         public DbSet<Department> Departments { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Errand> Errands { get; set; }

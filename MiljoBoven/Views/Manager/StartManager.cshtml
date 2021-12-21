@@ -3,7 +3,6 @@
     Layout = "_ManagerLayout";
 }
 
-
 <h2>Ärenden</h2>
 <p class="info">Du är inloggad som avdelningschef</p>
 
@@ -15,57 +14,36 @@
         <td class="label">Ärendenummer:</td>
         <td>&nbsp</td>
     </tr>
-  <tr>
-    <td>
-      <select name="status">
-        <option selected="selected">Välj alla</option>
-        @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
-        {
-          <option>@errandStatus.StatusName</option>
-        }
-      </select>
-    </td>
-    <td>
-      <select name="investigator">
-        <option selected="selected">Välj alla</option>
-        @foreach (Employee employee in Model.Employees)
-        {
-          <option>@employee.EmployeeName</option>
-        }
-      </select>
-    </td>
-    <td>
-      <input class="button" type="submit" value="Hämta lista"/>
-    </td>
-    <td>
-      <input name="casenumber"/>
-    </td>
-    <td>
-      <input class="button" type="submit" value="Sök"/>
-    </td>
-  </tr>
+    <tr>
+        <td>
+            <select name="status">
+                <option selected="selected">Välj alla</option>
+                @foreach (ErrandStatus errandStatus in Model.ErrandStatuses)
+                {
+                    <option value="@errandStatus.StatusId">@errandStatus.StatusName</option>
+                }
+            </select>
+        </td>
+        <td>
+            <select name="investigator">
+                <option selected="selected">Välj alla</option>
+                @foreach (MyErrand employee in Model.GetManagerEmployeeList())
+                {
+                    <option value="@employee.EmployeeName">@employee.EmployeeName</option>
+                }
+            </select>
+        </td>
+        <td>
+            <input class="button" type="submit" value="Hämta lista" />
+        </td>
+        <td>
+            <input name="casenumber" />
+        </td>
+        <td>
+            <input class="button" type="submit" value="Sök" />
+        </td>
+    </tr>
 </table>
 
-<table>
-  <tr>
-    <th>Ärende anmält</th>
-    <th>Ärendenummer</th>
-    <th>Miljöbrott</th>
-    <th>Status</th>
-    <th>Avdelning</th>
-    <th>Handläggare</th>
-  </tr>
-  @foreach (Errand errand in Model.Errands)
-  {
-    <tr>
-      <td>@errand.DateOfObservation.ToShortDateString()</td>
-      <td>
-        <a asp-controller="Manager" asp-action="CrimeManager" asp-route-id="@errand.ErrandId">@errand.RefNumber</a>
-      </td>
-      <td>@errand.TypeOfCrime</td>
-      <td>@errand.StatusId</td>
-      <td>@errand.DepartmentId</td>
-      <td>@errand.EmployeeId</td>
-    </tr>
-  }
-</table>
+
+@await Component.InvokeAsync("StartErrand")
