@@ -41,6 +41,7 @@ namespace MiljoBoven.Controllers
 
             if (ModelState.IsValid)
             {
+                //kod om allt är okej – se föregående sidor
                 if (user != null) // kontrollera att namnet finns i db
                 {
                     await signInManager.SignOutAsync(); // Om användaren är redan inlogga så tas sessionen bort

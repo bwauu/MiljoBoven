@@ -155,7 +155,7 @@ namespace MiljoBoven.Models
                                  TypeOfCrime = err.TypeOfCrime,
                                  DateOfObservation = err.DateOfObservation
                              };
-                             return errandList;
+            return errandList;
         }
         // Gets manager's employees by their association depId. 
         public IQueryable<MyErrand> GetManagerEmployeeList()
@@ -182,24 +182,24 @@ namespace MiljoBoven.Models
                              join sta in ErrandStatuses on err.StatusId equals sta.StatusId
                              join dep in Departments on err.DepartmentId equals dep.DepartmentId
                              into departmentErrand
-                             from deperr in departmentErrand.DefaultIfEmpty()
+                             from depErr in departmentErrand.DefaultIfEmpty()
                              join emp in Employees on err.EmployeeId equals emp.EmployeeId
                              into employeeErrand
-                             from emperr in employeeErrand.DefaultIfEmpty()
+                             from empErr in employeeErrand.DefaultIfEmpty()
 
                              orderby err.RefNumber descending
 
                              select new MyErrand
                              {
-                                 EmployeeName = (err.EmployeeId == null ? "Ej tillsatt" : emperr.EmployeeName),
-                                 DepartmentName = (err.DepartmentId == null ? "Ej tillsatt " : deperr.DepartmentName),
+                                 EmployeeName = (err.EmployeeId == null ? "Ej tillsatt" : empErr.EmployeeName),
+                                 DepartmentName = (err.DepartmentId == null ? "Ej tillsatt " : depErr.DepartmentName),
                                  RefNumber = err.RefNumber,
                                  ErrandId = err.ErrandId,
                                  StatusName = sta.StatusName,
                                  TypeOfCrime = err.TypeOfCrime,
                                  DateOfObservation = err.DateOfObservation,
-                                                                 
-                                 
+
+
                              };
             return errandList;
         }
@@ -212,11 +212,11 @@ namespace MiljoBoven.Models
                              join sta in ErrandStatuses on err.StatusId equals sta.StatusId
                              join dep in Departments on err.DepartmentId equals dep.DepartmentId
                              into departmentErrand
-                             from deperr in departmentErrand.DefaultIfEmpty()
+                             from depErr in departmentErrand.DefaultIfEmpty()
                              join emp in Employees on err.EmployeeId equals emp.EmployeeId
                              into investigatorErrands
-                             from emperr in investigatorErrands.DefaultIfEmpty()
-                             where emperr.EmployeeId == userName
+                             from empErr in investigatorErrands.DefaultIfEmpty()
+                             where empErr.EmployeeId == userName
                              orderby err.RefNumber descending
 
                              select new MyErrand
@@ -226,8 +226,8 @@ namespace MiljoBoven.Models
                                  RefNumber = err.RefNumber,
                                  TypeOfCrime = err.TypeOfCrime,
                                  StatusName = sta.StatusName,
-                                 DepartmentName = (err.DepartmentId == null ? "Ej tillsatt " : deperr.DepartmentName),
-                                 EmployeeName = (err.EmployeeId == null ? "Ej tillsatt" : emperr.EmployeeName)
+                                 DepartmentName = (err.DepartmentId == null ? "Ej tillsatt " : depErr.DepartmentName),
+                                 EmployeeName = (err.EmployeeId == null ? "Ej tillsatt" : empErr.EmployeeName)
                              };
             return errandList;
         }
