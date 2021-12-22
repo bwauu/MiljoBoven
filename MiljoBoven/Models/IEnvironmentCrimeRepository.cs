@@ -30,11 +30,15 @@ namespace MiljoBoven.Models
         void UpdateSamples(Sample sample); //  Imp av EFECR.cs Används i "UploadFiles" som ligger i "InvestigatorController".
 
         void UpdatePictures(Picture picture); //  Imp av EFECR.cs Används i "UploadFiles" som ligger i "InvestigatorController".
-
-        public IQueryable<MyErrand> GetManagerErrandList();
-        public IQueryable<MyErrand> GetManagerEmployeeList();
+        /********************************************************************************* Implementation av dessa metoders(ÄrendeListor) logik finns i EFECR.cs och appliceras i StartErrand Vyn (Som är en viewcomponent) */
+        public IQueryable<MyErrand> GetManagerErrandList(); 
         public IQueryable<MyErrand> GetInvestigatorErrandList();
         public IQueryable<MyErrand> GetCoordinatorErrandList();
+        /********************************************************************************* Implementation av dessa metoders(ÄrendeListor) logik finns i EFECR.cs och appliceras i StartErrand Vyn (Som är en viewcomponent) */
+
+        
+        // Hämtar 1 avdelningningschefs flera anställda/investigators. 1 avdelningschef ansvarar för "unit" och 1 "unit" har flera employees (anställda/investigators)
+        public IQueryable<MyErrand> GetManagerEmployeeList();
 
 
     }

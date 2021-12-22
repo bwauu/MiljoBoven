@@ -10,7 +10,7 @@
         <th>Handläggare</th>
     </tr>
 
-
+    @*ViewBag.Title is assigned in respective StartRole-Controller class.*@
     @if (ViewBag.Title == "Manager")
     {
         @foreach (MyErrand errand in Model.GetManagerErrandList())

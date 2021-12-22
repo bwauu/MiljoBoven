@@ -47,7 +47,7 @@ namespace MiljoBoven.Controllers
 
         public ViewResult ReportCrime() // Formulär
         {
-            ViewBag.Title = "Rapportera brott - Samordnare ";
+            ViewBag.Title = "Coordinator";
             var newErrand = HttpContext.Session.GetJson<Errand>("NewErrand");
             if (newErrand == null)
             {

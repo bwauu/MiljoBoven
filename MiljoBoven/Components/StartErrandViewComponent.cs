@@ -9,7 +9,7 @@ namespace MiljoBoven.Components
 {
     public class StartErrandViewComponent : ViewComponent
     {
-        private IEnvironmentCrimeRepository repository;
+        private IEnvironmentCrimeRepository repository;   
         public StartErrandViewComponent(IEnvironmentCrimeRepository repository)
         {
             this.repository = repository;

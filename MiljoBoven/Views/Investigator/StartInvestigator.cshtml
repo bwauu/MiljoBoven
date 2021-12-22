@@ -35,32 +35,3 @@
     </tr>
 </table>
 @await Component.InvokeAsync("StartErrand")
-@*
-
-
-
-    <table>
-        <tr>
-            <th>Ärende anmält</th>
-            <th>Ärendenummer</th>
-            <th>Miljöbrott</th>
-            <th>Status</th>
-            <th>Avdelning</th>
-            <th>Handläggare</th>
-        </tr>
-        @foreach (Errand errand in Model.Errands)
-        {
-            <tr>
-                <td>@errand.DateOfObservation.ToShortDateString()</td>
-                <td>
-                    <a asp-controller="Investigator" asp-action="CrimeInvestigator" asp-route-id="@errand.ErrandId">@errand.RefNumber</a>
-                </td>
-                <td>@errand.TypeOfCrime</td>
-                <td>@errand.StatusId</td>
-                <td>@errand.DepartmentId</td>
-                <td>@errand.EmployeeId</td>
-            </tr>
-        }
-    </table>
-
-*@
